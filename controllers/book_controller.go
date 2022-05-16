@@ -35,8 +35,8 @@ func ShowBook(c *gin.Context) {
 	}
 
 	db := database.GetDatabase()
-	var p models.Book
-	err = db.First(&p, newid).Error
+	var book models.Book
+	err = db.First(&book, newid).Error
 
 	if err != nil {
 		c.JSON(400, gin.H{
@@ -45,15 +45,15 @@ func ShowBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, p)
+	c.JSON(200, book)
 }
 
 func CreateBook(c *gin.Context) {
 	db := database.GetDatabase()
 
-	var p models.Book
+	var book models.Book
 
-	err := c.ShouldBindJSON(&p)
+	err := c.ShouldBindJSON(&book)
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "cannot bind JSON: " + err.Error(),
@@ -61,7 +61,7 @@ func CreateBook(c *gin.Context) {
 		return
 	}
 
-	err = db.Create(&p).Error
+	err = db.Create(&book).Error
 	if err != nil {
 		c.JSON(400, gin.H{
 			"error": "cannot create book: " + err.Error(),
@@ -69,5 +69,5 @@ func CreateBook(c *gin.Context) {
 		return
 	}
 
-	c.JSON(200, p)
+	c.JSON(200, book)
 }
