@@ -6,7 +6,7 @@
 $ docker-compose up --build
 ```
 
-### Run Database
+### Run server
 
 ```
 $ go run main.go
