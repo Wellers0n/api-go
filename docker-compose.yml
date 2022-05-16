@@ -1,0 +1,23 @@
+version: "3.7"
+
+services:
+  db:
+    build:
+      context: .
+      dockerfile: .dockerfile
+    image: github.com/wellers0n/webapi-db
+    container_name: webapi-mvc-db
+    restart: unless-stopped
+    tty: true
+    ports:
+      - "25432:5432"
+    environment:
+      POSTGRES_DB: books
+      POSTGRES_USER: admin
+      POSTGRES_PASSWORD: 123456
+      PGDATA: /var/lib/postgresql/data/webapi-mvc
+    volumes:
+      - webapi-mvc:/var/lib/postgresql/data
+
+volumes:
+  webapi-mvc:
